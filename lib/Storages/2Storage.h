@@ -1,9 +1,9 @@
 #include <LittleFS.h>
 
-// #include "Sto_RTC.h"
+#include "Sto_RTC.h"
 #include "Sto_LittleFS.h"
 #include "Sto_EEPROM.h"
-// #include "Sto_Behavior.h"
+#include "Sto_Behavior.h"
 
 #define EEPROM_SIZE 2000
 
@@ -28,7 +28,8 @@ struct Data_Stats {
 
    void printData() {
       // Loggable logger = Loggable("Data_Stats");
-      // Serial.println();
+      Serial.println();
+      Serial.printf("\nresetCnt = %lu", resetCnt);
       // logger.xLogf("resetCnt = %lu", resetCnt);
    }
 };
@@ -79,6 +80,7 @@ struct Data_Cred {
 
    void printData() {
       // Loggable logger = Loggable("Data_Cred");
+      Serial.println();
       Serial.printf("\nssid = %s", ssid);
       Serial.printf("\npassw = %s", password);  
    }
@@ -108,6 +110,7 @@ struct Data_Conf {
 
    void printData() {
       // Loggable logger = Loggable("Data_Conf");
+      Serial.println();
       Serial.printf("\ndeviceName = %s", deviceName);
       Serial.printf("\nmqttIP = %s", mqttIP);  
    }
@@ -136,6 +139,7 @@ struct Data_IotPlotter {
 
    void printData() {
       // Loggable logger = Loggable("Data_IotPlotter");
+      Serial.println();
       Serial.printf("\napiKey = %s", apiKey);
       Serial.printf("\nurl = %s", url);  
    }
@@ -166,8 +170,7 @@ struct Data_Settings {
 
    void printData() {
       // Loggable logger = Loggable("Data_Settings");
-      Serial.println();
-      Serial.printf("\nxSerial = %d", useXSerial);
+      // logger.xLogf("xSerial = %d", useXSerial);
       Serial.printf("\nespNowLogFreq = %d", espNowLogFreq);
       Serial.printf("\nespNowSendFreq = %u", espNowSendFreq);
    }
@@ -229,15 +232,15 @@ class Mng_Storage {
    // }
 
    public:
-      // Sto_RTC rtc_storage;
+      Sto_RTC rtc_storage;
       Sto_Stat stoStat;             
       Sto_Cred stoCred;             
       Sto_Conf stoConf;
 
       Sto_Settings stoSettings;             
       Sto_IotPlotter stoPlotter;     
-      // Sto_Peer stoPeer;
-      // Sto_Behavior stoBehavior;
+      Sto_Peer stoPeer;
+      Sto_Behavior stoBehavior;
 
       // Sto_Peer stoPeer;                      //! length 17*Count(20) [192 - 532/536]
       
@@ -261,8 +264,8 @@ class Mng_Storage {
          stoSettings.loadData(220);       //! len 4
          stoPlotter.loadData(230);        //! len 96
 
-         // stoPeer.loadData(580);           //! Count(5) * len 17
-         // stoBehavior.loadData(680);       //! 
+         stoPeer.loadData(580);           //! Count(5) * len 17
+         stoBehavior.loadData(680);       //! 
 
          // xLogSectionf("resetCount = %llu", stoStat.resetCnt());
 
@@ -297,11 +300,11 @@ class Mng_Storage {
          //# Settings
          else if (stoSettings.handleCommand(inputStr)) { }
 
-         // //# peers
-         // else if (stoPeer.handleCommand(inputStr)) { }
+         //# peers
+         else if (stoPeer.handleCommand(inputStr)) { }
 
-         // //# behaviors
-         // else if (stoBehavior.handleCommand(inputStr)) { }
+         //# behaviors
+         else if (stoBehavior.handleCommand(inputStr)) { }
    
          //#
          else if (strcmp(inputStr, "getSens") == 0) {
@@ -353,8 +356,8 @@ class Mng_Storage {
          stoCred.deleteData();
          stoConf.deleteData();
          stoPlotter.deleteData();
-         // stoPeer.deleteData();
-         // stoBehavior.deleteData();
+         stoPeer.deleteData();
+         stoBehavior.deleteData();
       }
 
       // void resetBootCnt() {
