@@ -214,7 +214,7 @@ class Sto_Behavior: public Sto_Array<Data_Behavior, MAX_BEHAVIOR_ITEMS> {
          });
       }
 
-      void handleCue(uint8_t peerId, Cue_Trigger cue) {
+      void handleCue(uint8_t peerId, BCue_Trigger cue) {
          forEach([&](Data_Behavior* item, uint8_t index) {
             // xLogf("At Index = %u", index);
             if (item->check(peerId, cue) == false) return;      
@@ -229,7 +229,7 @@ class Sto_Behavior: public Sto_Array<Data_Behavior, MAX_BEHAVIOR_ITEMS> {
          });
       }
 
-      template <Cue_Trigger trigger, class T>
+      template <BCue_Trigger trigger, class T>
       void storeAction(uint8_t behavIndex, T* action, uint8_t peerId) {
 			// uint8_t id = stoPeer.addPeer(peerMac);
 			Data_Behavior behav_In;

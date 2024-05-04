@@ -6,7 +6,7 @@ enum Cmd_Behavior: uint8_t {
    ACTION_NONE = 0xAF
 };
 
-enum Cue_Trigger: uint8_t {
+enum BCue_Trigger: uint8_t {
    TRIGGER_STARTUP = 0xB0,
    TRIGGER_SINGLECLICK = 0xB1,
    TRIGGER_DOUBLECLICK = 0xB2,
@@ -17,7 +17,7 @@ enum Cue_Trigger: uint8_t {
 };
 
 struct Data_Behavior {
-   Cue_Trigger cue;
+   BCue_Trigger cue;
    uint8_t peerId;
    uint8_t data[32]; 
    
@@ -25,12 +25,12 @@ struct Data_Behavior {
       memcpy(charArr, this, sizeof(Data_Behavior));
    }
 
-   bool check(uint8_t peerIdIdVal, Cue_Trigger cueVal) {
+   bool check(uint8_t peerIdIdVal, BCue_Trigger cueVal) {
       return peerId == peerIdIdVal && cue == cueVal;
    }
    
    template <typename T>
-   void load(uint8_t peerIdVal, Cue_Trigger cueVal, T* control) {
+   void load(uint8_t peerIdVal, BCue_Trigger cueVal, T* control) {
       memcpy(data, control, sizeof(T));
       peerId = peerIdVal;
       cue = cueVal;
@@ -38,7 +38,7 @@ struct Data_Behavior {
 
    template <typename T>
    void load(uint8_t peerIdVal, const char* cueStr, T* control) {
-      Cue_Trigger trigger = TRIGGER_NONE;
+      BCue_Trigger trigger = TRIGGER_NONE;
 
       if (strcmp(cueStr, "1CLICK") == 0) {
          trigger = TRIGGER_SINGLECLICK;
