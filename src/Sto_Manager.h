@@ -3,6 +3,8 @@
 #include "Storages/Sto_RTC.h"
 #include "Storages/Sto_LittleFS.h"
 #include "Storages/Sto_EEPROM.h"
+
+#include "Storages/Behavior.h"
 #include "Storages/Sto_Behavior.h"
 
 #define EEPROM_SIZE 2000

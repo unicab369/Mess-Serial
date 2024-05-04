@@ -1,4 +1,3 @@
-#include "Behavior.h"
 
 template <class T, uint8_t count>
 class Sto_Array {
