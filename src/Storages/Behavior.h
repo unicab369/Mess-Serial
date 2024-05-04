@@ -7,13 +7,13 @@ enum Cmd_Behavior: uint8_t {
 };
 
 enum BCue_Trigger: uint8_t {
-   TRIGGER_STARTUP = 0xB0,
-   TRIGGER_SINGLECLICK = 0xB1,
-   TRIGGER_DOUBLECLICK = 0xB2,
-   TRIGGER_PIR = 0xB3,
-   TRIGGER_IR = 0xB4,
-   TRIGGER_STATE = 0xB5,
-   TRIGGER_NONE = 0xF1,
+   BTRIGGER_STARTUP = 0xB0,
+   BTRIGGER_SINGLECLICK = 0xB1,
+   BTRIGGER_DOUBLECLICK = 0xB2,
+   BTRIGGER_PIR = 0xB3,
+   BTRIGGER_IR = 0xB4,
+   BTRIGGER_STATE = 0xB5,
+   BTRIGGER_NONE = 0xF1,
 };
 
 struct Data_Behavior {
@@ -38,25 +38,25 @@ struct Data_Behavior {
 
    template <typename T>
    void load(uint8_t peerIdVal, const char* cueStr, T* control) {
-      BCue_Trigger trigger = TRIGGER_NONE;
+      BCue_Trigger trigger = BTRIGGER_NONE;
 
       if (strcmp(cueStr, "1CLICK") == 0) {
-         trigger = TRIGGER_SINGLECLICK;
+         trigger = BTRIGGER_SINGLECLICK;
       }
       else if (strcmp(cueStr, "2CLICK") == 0) {
-         trigger = TRIGGER_DOUBLECLICK;
+         trigger = BTRIGGER_DOUBLECLICK;
       }
       else if (strcmp(cueStr, "CUE_PIR") == 0) {
-         trigger = TRIGGER_PIR;
+         trigger = BTRIGGER_PIR;
       }
       else if (strcmp(cueStr, "CUE_IR") == 0) {
-         trigger = TRIGGER_IR;
+         trigger = BTRIGGER_IR;
       }
       else if (strcmp(cueStr, "CUE_STATE") == 0) {
-         trigger = TRIGGER_STATE;
+         trigger = BTRIGGER_STATE;
       }
       else if (strcmp(cueStr, "CUE_THRESHOLD") == 0) {
-         trigger = TRIGGER_NONE;
+         trigger = BTRIGGER_NONE;
       }
 
       load(peerIdVal, trigger, control);
@@ -69,7 +69,7 @@ struct Data_Behavior {
 
    void clear() {
       peerId = 255;
-      cue = TRIGGER_NONE;
+      cue = BTRIGGER_NONE;
       memset(data, 0, sizeof(data));
    }
 
