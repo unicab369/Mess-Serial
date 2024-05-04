@@ -1,3 +1,5 @@
+#include <LittleFS.h>
+
 #include "Sto_Interface.h"
 #include "SD.h"
 

@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "SerialControl.h"
-#include "2Storage.h"
+
+#include "Sto_Manager.h"
 
 SerialControl serial;
 Mng_Storage storage;
